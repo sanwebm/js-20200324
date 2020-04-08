@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:all": "NODE_ICU_DATA=node_modules/full-icu jest",
-    "test:specific": "NODE_ICU_DATA=node_modules/full-icu jest --findRelatedTests",
+    "test:all": "jest",
+    "test:specific": "jest --findRelatedTests",
     "start": "static-server"
   },
   "repository": {
