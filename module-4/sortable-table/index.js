@@ -75,7 +75,7 @@ export default class SortableTable {
   }
 
   getSubElements(parentElement){
-    console.log([...parentElement.querySelectorAll("[data-element]")]);
+    //console.log([...parentElement.querySelectorAll("[data-element]")]);
     return [...parentElement.querySelectorAll("[data-element]")].reduce(function(previousValue, item){
       previousValue[item.dataset.element] = item;
       return previousValue;
