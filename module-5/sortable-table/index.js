@@ -113,7 +113,7 @@ export default class SortableTable {
     if (!parent) return;
 
     // sorting not possible
-    if (parent.dataset.sortable === false) return;
+    if (parent.dataset.sortable === 'false') return;
 
     const field = parent.dataset.id;
     let order = parent.dataset.order;
