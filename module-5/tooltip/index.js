@@ -11,43 +11,31 @@ class Tooltip {
     Tooltip.instance = this;
   }
 
-  pointerOver(event){
-    this.render(event.x, event.y, event.target.dataset.tooltip);
-  }
+  pointerOver = event => {
+    const element = event.target.closest('[data-tooltip]');
 
-  pointerOut(){
-    if(this.element){
-      this.destroy();
+    if (element){
+      this.render(event.x, event.y, element.dataset.tooltip);
+      document.addEventListener('pointermove', this.pointerMove);
     }
-  }
-  pointerMove(event){
+  };
+
+  pointerOut = event => {
     if(this.element){
+      this.element.remove();
+      this.element = null;
+      document.removeEventListener('pointermove', this.pointerMove);
+    }
+  };
+
+  pointerMove = event => {
       this.element.style.left = event.x + 10 + 'px';
-      this.element.style.top = event.y + 10  + 'px';
-    }
-  }
+      this.element.style.top = event.y + 10 + 'px';
+  };
 
   initEventListeners () {
-    document.addEventListener('pointerover', event => {
-      if(event.target.dataset.tooltip) {
-        this.pointerOver(event);
-      }
-
-      document.addEventListener('pointerout', event => {
-        if(event.target.dataset.tooltip){
-          this.pointerOut();
-        }
-      });
-
-      document.addEventListener('pointermove', event => {
-        if(event.target.dataset.tooltip){
-          this.pointerMove(event);
-        }
-      });
-
-    });
-
-
+    document.addEventListener('pointerover', this.pointerOver);
+    document.addEventListener('pointerout', this.pointerOut);
   }
 
   initialize () {
@@ -67,13 +55,13 @@ class Tooltip {
     if(this.element){
       this.element.remove();
       this.element = null;
+      document.removeEventListener('pointermove', this.pointerMove);
     }
 
     document.removeEventListener('pointerover', this.pointerOver);
     document.removeEventListener('pointerout', this.pointerOut);
-    document.removeEventListener('pointermove', this.pointerMove);
-  }
 
+  }
 
 }
 
