@@ -91,7 +91,7 @@ export default class SortableTable {
   }
 
   async loadData(id, order, start = 0, end = this.pageSize) {
-    // console.log(id, order, start, end);
+
     this.url.searchParams.set('_embed', `subcategory.category`);
     this.url.searchParams.set('_sort', id);
     this.url.searchParams.set('_order', order);
@@ -102,7 +102,7 @@ export default class SortableTable {
     this.element.classList.add('sortable-table_loading');
     let data = await fetchJson(this.url.href);
     this.element.classList.remove('sortable-table_loading');
-    // console.log(data);
+
     return data;
   }
 
@@ -196,9 +196,6 @@ export default class SortableTable {
 
   getTableBodyRow(dataItem){
     let dataItemHTML = this.headersConfig.map( headersConfigItem => {
-      // console.log(headersConfigItem);
-      // console.log(`${dataItem.id} ${dataItem.images.length}`);
-      console.log(dataItem.images);
       return headersConfigItem.template
         ? dataItem.images.length>0 ? headersConfigItem.template(dataItem[headersConfigItem.id]) : ''
         : `<div class="sortable-table__cell">${dataItem[headersConfigItem.id]}</div>`;
