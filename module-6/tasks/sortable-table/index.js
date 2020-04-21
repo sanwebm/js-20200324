@@ -117,9 +117,11 @@ export default class SortableTable {
 
   onPageScroll = async (event) => {
 
-      let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+    if (this.loadingSubPageTrigger) return;
 
-      if ( !this.loadingSubPageTrigger && (windowRelativeBottom < document.documentElement.clientHeight + 100)) {
+    let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+
+      if ( windowRelativeBottom < document.documentElement.clientHeight + 100) {
         this.loadingSubPageTrigger = true;
 
         const pageStart = this.pageNumber * this.pageSize;
@@ -147,7 +149,7 @@ export default class SortableTable {
           window.scrollBy(0, savedScrollPosition);
         }
 
-        this.loadingSubPageTrigger = false;
+        data.length === this.pageSize ? this.loadingSubPageTrigger = false : this.loadingSubPageTrigger = true
       }
 
   };
@@ -194,14 +196,24 @@ export default class SortableTable {
 
   getTableBodyRow(dataItem){
     let dataItemHTML = this.headersConfig.map( headersConfigItem => {
+      // console.log(headersConfigItem);
+      // console.log(`${dataItem.id} ${dataItem.images.length}`);
+      console.log(dataItem.images);
       return headersConfigItem.template
-        ? headersConfigItem.template(dataItem[headersConfigItem.id])
+        ? dataItem.images.length>0 ? headersConfigItem.template(dataItem[headersConfigItem.id]) : ''
         : `<div class="sortable-table__cell">${dataItem[headersConfigItem.id]}</div>`;
     }).join("");
-
     return `<a href="/products/${dataItem.id}" class="sortable-table__row">${dataItemHTML}</a>`;
   }
-
+/*  getTableBodyRow(dataItem){
+    let dataItemHTML = this.headersConfig.map( headersConfigItem => {
+      if (dataItem.images.length>0)
+        return headersConfigItem.template
+          ? headersConfigItem.template(dataItem[headersConfigItem.id])
+          : `<div class="sortable-table__cell">${dataItem[headersConfigItem.id]}</div>`;
+    }).join("");
+    return `<a href="/products/${dataItem.id}" class="sortable-table__row">${dataItemHTML}</a>`;
+  }*/
   getTableBody(data){
     return data.map(dataItem => this.getTableBodyRow(dataItem)).join("");
 
