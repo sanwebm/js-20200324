@@ -63,7 +63,7 @@ export default class SortableTable {
       id: headersConfig.find(item => item.sortable).id,
       order: 'asc'
     },
-    isSortLocally = true
+    isSortLocally = false
   } = {}) {
 
     this.headersConfig = headersConfig;
