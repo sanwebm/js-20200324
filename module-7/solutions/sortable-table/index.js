@@ -167,22 +167,6 @@ export default class SortableTable {
 
   initEventListeners () {
     this.subElements.header.addEventListener('pointerdown', this.onSortClick);
-
-    /*this.onPageScroll();*/
-    window.addEventListener('scroll', this.onPageScroll);
-  }
-
-  onPageScroll(){
-
-    let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
-
-    if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
-      console.log(windowRelativeBottom+' bottom');
-      document.documentElement.style.height = '8000px';
-    }
-
-    // document.body.insertAdjacentHTML("beforeend", `<p>Date: ${new Date()}</p>`);
-
   }
 
   sortLocally (id, order) {

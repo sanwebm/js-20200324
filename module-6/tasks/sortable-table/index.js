@@ -7,6 +7,7 @@ export default class SortableTable {
   subElements = {};
   data = [];
   pageSize = 30;
+  pageNumber = 1;
 
   onSortClick = event => {
 
@@ -36,8 +37,8 @@ export default class SortableTable {
     this.subElements.body.innerHTML = this.getTableBody(sortData);
   }
 
-  async sortOnServer(field, order){
-    const sortData = await this.loadData(field, order);
+  async sortOnServer(field, order,){
+    const sortData = await this.loadData(field, order,0, this.pageNumber*this.pageSize);
     this.subElements.header.innerHTML = this.getTableHeaderRows(field, order);
     this.renderRows(sortData);
   }
@@ -62,7 +63,7 @@ export default class SortableTable {
       id: headersConfig.find(item => item.sortable).id,
       order: 'asc'
     },
-    isSortLocally = false
+    isSortLocally = true
   } = {}) {
 
     this.headersConfig = headersConfig;
@@ -89,23 +90,67 @@ export default class SortableTable {
     this.initEventListeners();
   }
 
-  async loadData(id, order) {
+  async loadData(id, order, start = 0, end = this.pageSize) {
+    // console.log(id, order, start, end);
     this.url.searchParams.set('_embed', `subcategory.category`);
     this.url.searchParams.set('_sort', id);
     this.url.searchParams.set('_order', order);
-    this.url.searchParams.set('_start', 0);
-    this.url.searchParams.set('_end', this.pageSize);
+    this.url.searchParams.set('_start', `${start}`);
+    this.url.searchParams.set('_end', `${end}`);
+
 
     this.element.classList.add('sortable-table_loading');
     let data = await fetchJson(this.url.href);
     this.element.classList.remove('sortable-table_loading');
-
+    // console.log(data);
     return data;
   }
 
   initEventListeners () {
     this.subElements.header.addEventListener('pointerdown', this.onSortClick);
+
+    this.loadingSubPageTrigger = false;
+    window.addEventListener('scroll', this.onPageScroll);
   }
+
+
+
+  onPageScroll = async (event) => {
+
+      let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+
+      if ( !this.loadingSubPageTrigger && (windowRelativeBottom < document.documentElement.clientHeight + 100)) {
+        this.loadingSubPageTrigger = true;
+
+        const pageStart = this.pageNumber * this.pageSize;
+        const pageEnd = (this.pageNumber + 1) * this.pageSize;
+
+        let field = this.sorted.id;
+        let order = this.sorted.order;
+
+        let orderCell = [...this.subElements.header.querySelectorAll('[data-order]')]
+            .find( cell => cell.dataset.order !== '');
+
+        if(orderCell) {
+          field = orderCell.dataset.id;
+          order = orderCell.dataset.order;
+        }
+
+        const data = await this.loadData(field, order, pageStart, pageEnd);
+
+        if (data){
+          this.pageNumber++;
+          this.data = this.data.concat(data);
+
+          let savedScrollPosition = this.subElements.body.getBoundingClientRect().bottom - 240;
+          this.subElements.body.innerHTML += await this.getTableBody([...data]);
+          window.scrollBy(0, savedScrollPosition);
+        }
+
+        this.loadingSubPageTrigger = false;
+      }
+
+  };
 
   sortData(id, order) {
     const arr = [...this.data];
@@ -192,5 +237,7 @@ export default class SortableTable {
   destroy() {
     this.remove();
     this.subElements = {};
+    document.removeEventListener('scroll', this.onPageScroll);
   }
+
 }
