@@ -75,7 +75,8 @@ export class WarningNotificationMessage extends NotificationMessage{
 export class ErrorNotificationMessage extends NotificationMessage{
   constructor(message, {duration = 2000} = {}){
     super(message, {duration: duration, type: 'error'});
-    document.addEventListener('pointerdown', event => this.onPointerDown(event));
+    const closeBtn = this.element.querySelector('.close');
+    closeBtn.addEventListener('pointerdown', event => this.onPointerDown(event));
   }
 
   onPointerDown = event => {
@@ -83,18 +84,9 @@ export class ErrorNotificationMessage extends NotificationMessage{
     let closeElement = event.target.closest('span.close');
     if (!closeElement) return;
     if (closeElement.closest('div.notification') === this.element) {
-      this.remove();
+      this.remove(event);
     }
   };
-
-/*  onPointerDown(event){
-    if (event.which !== 1) return;
-    let closeElement = event.target.closest('span.close');
-    if (!closeElement) return;
-    if (closeElement.closest('div.notification') === this.element) {
-      this.remove();
-    }
-  }*/
 
   show (parent) {
     const root = parent || document.body;
