@@ -78,15 +78,23 @@ export class ErrorNotificationMessage extends NotificationMessage{
     document.addEventListener('pointerdown', event => this.onPointerDown(event));
   }
 
-  onPointerDown(event){
+  onPointerDown = event => {
     if (event.which !== 1) return;
     let closeElement = event.target.closest('span.close');
     if (!closeElement) return;
     if (closeElement.closest('div.notification') === this.element) {
       this.remove();
     }
+  };
 
-  }
+/*  onPointerDown(event){
+    if (event.which !== 1) return;
+    let closeElement = event.target.closest('span.close');
+    if (!closeElement) return;
+    if (closeElement.closest('div.notification') === this.element) {
+      this.remove();
+    }
+  }*/
 
   show (parent) {
     const root = parent || document.body;
