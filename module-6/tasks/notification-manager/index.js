@@ -7,7 +7,6 @@ import {
 
 export default class NotificationManager {
   static instance;
-
   notificationsList = [];
 
   constructor ({ stackLimit = 3} = {}) {
@@ -54,14 +53,12 @@ export default class NotificationManager {
 
   removeOldMessage () {
     const notification = this.notificationsList.shift();
-
     notification.remove();
   }
 
   createContainer () {
     this.element = document.createElement('div');
     this.element.className = 'notifications-container';
-
     document.body.append(this.element);
   }
 

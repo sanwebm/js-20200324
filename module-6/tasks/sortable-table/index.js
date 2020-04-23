@@ -145,7 +145,17 @@ export default class SortableTable {
           this.data = this.data.concat(data);
 
           let savedScrollPosition = this.subElements.body.getBoundingClientRect().bottom - 240;
-          this.subElements.body.innerHTML += await this.getTableBody([...data]);
+          // this.subElements.body.innerHTML += await this.getTableBody([...data]);
+
+          let lastBodyRow = this.subElements.body.querySelector('.sortable-table__body a:last-child');
+          let dataFromServer =  await this.getTableBody([...data]);
+          lastBodyRow.insertAdjacentHTML('afterend', dataFromServer);
+
+          /*let newData = await this.getTableBody([...data]);
+          let element = document.createElement('div');
+          element.innerHTML = newData;
+          this.subElements.body.appendChild(element);*/
+
           window.scrollBy(0, savedScrollPosition);
         }
 
@@ -197,11 +207,19 @@ export default class SortableTable {
   getTableBodyRow(dataItem){
     let dataItemHTML = this.headersConfig.map( headersConfigItem => {
       return headersConfigItem.template
-        ? dataItem.images.length>0 ? headersConfigItem.template(dataItem[headersConfigItem.id]) : ''
+        ? headersConfigItem.template(dataItem[headersConfigItem.id])
         : `<div class="sortable-table__cell">${dataItem[headersConfigItem.id]}</div>`;
     }).join("");
     return `<a href="/products/${dataItem.id}" class="sortable-table__row">${dataItemHTML}</a>`;
   }
+/*  getTableBodyRow(dataItem){
+    let dataItemHTML = this.headersConfig.map( headersConfigItem => {
+      return headersConfigItem.template
+        ? dataItem.images.length>0 ? headersConfigItem.template(dataItem[headersConfigItem.id]) : ''
+        : `<div class="sortable-table__cell">${dataItem[headersConfigItem.id]}</div>`;
+    }).join("");
+    return `<a href="/products/${dataItem.id}" class="sortable-table__row">${dataItemHTML}</a>`;
+  }*/
 /*  getTableBodyRow(dataItem){
     let dataItemHTML = this.headersConfig.map( headersConfigItem => {
       if (dataItem.images.length>0)
