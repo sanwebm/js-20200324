@@ -23,21 +23,27 @@
       </div>
       <div class="form-group form-group__wide">
         <label class="form-label">Описание</label>
-        <textarea required="" class="form-control" name="description" data-elem="productDescription" placeholder="Описание товара"></textarea>
+        <textarea required="" class="form-control" name="description" data-elem="productDescription"
+                  placeholder="Описание товара"></textarea>
       </div>
       <div class="form-group form-group__wide" data-elem="sortable-list-container">
         <label class="form-label">Фото</label>
-        <div data-elem="imageListContainer"><ul class="sortable-list"><li class="products-edit__imagelist-item sortable-list__item" style="">
-          <input type="hidden" name="url" value="https://i.imgur.com/MWorX2R.jpg">
-          <input type="hidden" name="source" value="75462242_3746019958756848_838491213769211904_n.jpg">
-          <span>
+        <div data-elem="imageListContainer">
+          <ul class="sortable-list">
+            <li class="products-edit__imagelist-item sortable-list__item" style="">
+              <input type="hidden" name="url" value="https://i.imgur.com/MWorX2R.jpg">
+              <input type="hidden" name="source" value="75462242_3746019958756848_838491213769211904_n.jpg">
+              <span>
         <img src="../../assets/icons/icon-grab.svg" data-grab-handle="" alt="grab">
         <img class="sortable-table__cell-img" alt="Image" src="https://i.imgur.com/MWorX2R.jpg">
         <span>75462242_3746019958756848_838491213769211904_n.jpg</span>
       </span>
-          <button type="button">
-            <img src="../../assets/icons/icon-trash.svg" data-delete-handle="" alt="delete">
-          </button></li></ul></div>
+              <button type="button">
+                <img src="../../assets/icons/icon-trash.svg" data-delete-handle="" alt="delete">
+              </button>
+            </li>
+          </ul>
+        </div>
         <button type="button" name="uploadImage" class="button-primary-outline"><span>Загрузить</span></button>
       </div>
       <div class="form-group form-group__half_left">
