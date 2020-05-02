@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>ProductForm</title>
 
-<link rel="stylesheet" href="../../styles/all.css">
+<link rel="stylesheet" href="./style.css">
 
 <style>
   #root {
@@ -28,6 +28,7 @@
       </div>
       <div class="form-group form-group__wide" data-elem="sortable-list-container">
         <label class="form-label">Фото</label>
+<<<<<<< HEAD
         <div data-elem="imageListContainer">
           <ul class="sortable-list">
             <li class="products-edit__imagelist-item sortable-list__item" style="">
@@ -44,11 +45,24 @@
             </li>
           </ul>
         </div>
+=======
+        <div data-elem="imageListContainer"><ul class="sortable-list"><li class="products-edit__imagelist-item sortable-list__item" style="">
+          <input type="hidden" name="url" value="https://i.imgur.com/MWorX2R.jpg">
+          <input type="hidden" name="source" value="75462242_3746019958756848_838491213769211904_n.jpg">
+          <span>
+        <img src="./icon-grab.svg" data-grab-handle="" alt="grab">
+        <img class="sortable-table__cell-img" alt="Image" src="https://i.imgur.com/MWorX2R.jpg">
+        <span>75462242_3746019958756848_838491213769211904_n.jpg</span>
+      </span>
+          <button type="button">
+            <img src="./icon-trash.svg" data-delete-handle="" alt="delete">
+          </button></li></ul></div>
+>>>>>>> db0d8136d32a3dcba8c3786732959ef4199049d3
         <button type="button" name="uploadImage" class="button-primary-outline"><span>Загрузить</span></button>
       </div>
       <div class="form-group form-group__half_left">
         <label class="form-label">Категория</label>
-        <select class="form-control" name="category">
+        <select class="form-control" name="subcategory">
           <option value="progulki-i-detskaya-komnata">Детские товары и игрушки &gt; Прогулки и детская комната</option>
           <option value="kormlenie-i-gigiena">Детские товары и игрушки &gt; Кормление и гигиена</option>
           <option value="igrushki-i-razvlecheniya">Детские товары и игрушки &gt; Игрушки и развлечения</option>
@@ -120,5 +134,3 @@
 </div>
 
 </body>
-
-
