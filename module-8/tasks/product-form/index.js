@@ -303,7 +303,6 @@ export default class ProductForm {
   onSubmit = event => {
     event.preventDefault();
     this.upload();
-    //this.dispatchEvent();
   };
 
   async upload() {
@@ -319,7 +318,7 @@ export default class ProductForm {
       });
       this.dispatchEvent(result.id);
     } catch {
-      throw new Error('Error onSubmit with sanding data');
+      throw new Error('Error on fn onSubmit() -> upload() with sending data');
     }
   }
 
