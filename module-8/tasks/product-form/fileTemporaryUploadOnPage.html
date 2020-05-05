@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><body>
+<script>
+let elem = document.createElement('div');
+elem.innerHTML=`
+<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL()" accept='image/*' multiple>
+<div id="imgTest"></div>
+`;
+document.body.append(elem);
+
+function encodeImageFileAsURL(){
+  let files = document.querySelector('#inputFileToLoad').files;
+  console.log(files);
+
+  [...files].map( file => {
+    let fileToLoad = file;
+    let fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent){
+      let srcData = fileLoadedEvent.target.result;
+      let newImage = document.createElement('img');
+      newImage.style.width = '150px';
+      newImage.src = srcData;
+      imgTest.append(newImage);
+      newImage.addEventListener('click', (e)=>{
+        e.target.remove();
+      });
+    };
+    fileReader.readAsDataURL(fileToLoad);
+  });
+
+}
+</script>
+</body></html>
