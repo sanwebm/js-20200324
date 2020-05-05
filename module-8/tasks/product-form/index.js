@@ -60,31 +60,6 @@ export default class ProductForm {
 
     this.inputTag.click();
 
-
-/*    const { uploadImage, fileInputList, imageListContainer } = this.subElements;
-
-
-    console.log(imageListContainer);
-    imageListContainer.insertAdjacentHTML('afterend',  `
-    <input name="image" type="file" accept='image/!*' hidden multiple>
-    `);
-
-    const fileInput = this.createUploadImageInput();
-
-    fileInput.addEventListener('change', event => {
-      const [file] = event.target.files;
-      const reader = new FileReader();
-
-      reader.onload = ({ target }) => {
-        imageListContainer.append(this.getImageTemplate(target.result, file.name));
-      };
-
-      reader.readAsDataURL(file);
-
-      fileInputList.append(fileInput);
-    });
-
-    fileInput.click();*/
   };
 
   createUploadImageInput () {
@@ -113,31 +88,6 @@ export default class ProductForm {
 
     return select.outerHTML;
   }
-
-/*  createImagesList () {
-    return this.formData.images.map(item => {
-      return this.getImageItem(item.url, item.name).outerHTML;
-    }).join('');
-  }
-
-  getImageItem (url, name) {
-    const wrapper = document.createElement('div');
-
-    wrapper.innerHTML = `
-      <li class="products-edit__imagelist-item sortable-list__item">
-        <span>
-          <img src="./icon-grab.svg" data-grab-handle alt="grab">
-          <img class="sortable-table__cell-img" alt="${escapeHtml(name)}" src="${escapeHtml(url)}">
-          <span>${escapeHtml(name)}</span>
-        </span>
-
-        <button type="button">
-          <img src="./icon-trash.svg" alt="delete" data-delete-handle>
-        </button>
-      </li>`;
-
-    return wrapper.firstElementChild;
-  }*/
 
   template () {
     return `
