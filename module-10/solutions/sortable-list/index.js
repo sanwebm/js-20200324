@@ -94,7 +94,7 @@ export default class SortableList {
     }
   }
 
-  dragStart(itemElem, {clientX, clientY}) {
+   dragStart(itemElem, {clientX, clientY}) {
     this.elementInitialIndex = [...this.element.children].indexOf(itemElem);
 
     this.pointerInitialShift = {
