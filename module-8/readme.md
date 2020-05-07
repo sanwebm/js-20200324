@@ -23,7 +23,7 @@
 
 ## Дополнительные материалы:
 
-* [Jest документация](https://jestjs.io/) - фреймвор для тестирования 
+* [Jest документация](https://jestjs.io/) - фреймворк для тестирования 
 * [jest-dom](https://github.com/testing-library/jest-dom) - набор дополнительных "matchers" - проверок результата переданного в "expect"
 * [jest-fetch-mock](https://www.npmjs.com/package/jest-fetch-mock) - позволяет подменить реальный реквест на "фейковые" данные
 * [Puppeteer](https://pptr.dev/) - Headless Chrome Node.js API

@@ -21,7 +21,7 @@
 
 ## Задачи: 
 
-* [SortableTable компонент](https://glitch.com/edit/#!/aromatic-substantial-jump) без динамической подгрузки
+* [SortableTable компонент](https://glitch.com/edit/#!/aromatic-substantial-jump) без динамической загрузки
 
 Пояснение к заданию:  
 
