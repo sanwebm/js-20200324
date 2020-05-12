@@ -14,6 +14,10 @@ export default class SortableList {
         this.prepareDragging(itemElement, event);
       }
     }
+    if (event.target.closest('[data-delete-handle]')) {
+      event.preventDefault();
+      itemElement.remove();
+    }
 
   }
 
@@ -23,6 +27,7 @@ export default class SortableList {
     this.copyElement.style.display = 'none';
     let elemBelow = document.elementFromPoint(clientX, clientY);
     this.copyElement.style.display = 'list-item';
+    this.copyElement.style.display = ''; // to match css in this project
 
     this.scrollIfCloseToWindowEdge(clientY);
 
