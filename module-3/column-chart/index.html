@@ -24,6 +24,21 @@
       .dashboard__chart_customers {
         --chart-column-color: var(--purple);
       }
+      .tooltip {
+        cursor: pointer;
+        position: fixed;
+        padding: 8px 12px;
+        border-radius: 4px;
+        text-align: left;
+        background: white;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        font-size: 16px;
+        line-height: 20px;
+        color: rgba(51, 77, 110, 1);
+        transition: opacity 0.1s ease-out;
+        z-index: 99;
+      }
+
     </style>
   </head>
 
@@ -35,10 +50,12 @@
     </div>
 
     <script type="module">
-      import ColumnChart from "./column-chart.js";
+      // import ColumnChart from "./column-chart.js";
+      import ColumnChart from "./index.js";
 
       const ordersData = [];
-      const salesData = [ 30, 40, 20, 80, 35, 15 ];
+      // const salesData = [ 30, 40, 20, 80, 35, 15 ];
+      const salesData = Array.from( {length:30}, () => Math.floor(Math.random() * 1000) );
       const customersData = [ 100, 90, 80, 35, 90, 25 ];
 
       const ordersChart = new ColumnChart({
@@ -63,6 +80,10 @@
       orders.append(ordersChart.element);
       sales.append(salesChart.element);
       customers.append(customersChart.element);
+
+      import tooltip from "../../module-5/tooltip/index.js";
+      tooltip.initialize();
+
     </script>
   </body>
 </html>
