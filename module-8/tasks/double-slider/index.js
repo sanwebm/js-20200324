@@ -7,8 +7,8 @@ export default class DoubleSlider {
      max = 200,
      formatValue = value => '$' + value,
      selected = {
-       from: min,
-       to: max
+       from: 150,
+       to: 180
      }
    } = {}) {
     this.min = min;
@@ -37,6 +37,9 @@ export default class DoubleSlider {
     tempElement.innerHTML = this.template;
     this.element = tempElement.firstElementChild;
     this.subElements = this.getSubElements(tempElement);
+
+    // To init shift in default state
+    this.shiftX = 0;
 
     this.update();
     this.initEventListeners();
@@ -67,23 +70,27 @@ export default class DoubleSlider {
   }
 
   onInnerPointerDown = event => {
+
     event.preventDefault();
 
-    if ( !event.target.closest('.range-slider') ) { return false }
+    const { target } = event;
+    const { thumbLeft, thumbRight } = this.subElements;
 
-    if ( event.target === this.subElements.thumbLeft || event.target === this.subElements.thumbRight ) { return false }
+    if ( !target.closest('.range-slider') ) { return false }
 
-    const rectThumbLeft = this.subElements.thumbLeft.getBoundingClientRect();
-    const rectThumbRight = this.subElements.thumbRight.getBoundingClientRect();
+    if ( target === thumbLeft || target === thumbRight ) { return false }
+
+    const rectThumbLeft = thumbLeft.getBoundingClientRect();
+    const rectThumbRight = thumbRight.getBoundingClientRect();
 
     const clientX = event.clientX;
 
     if ( clientX < rectThumbLeft.left ){
-      this.draggingElement = this.subElements.thumbLeft;
+      this.draggingElement = thumbLeft;
       this.onDraggingThumbLeft(event);
     }
     else if ( clientX > rectThumbRight.right ) {
-      this.draggingElement = this.subElements.thumbRight;
+      this.draggingElement = thumbRight;
       this.onDraggingThumbRight(event);
     }
     else if ( clientX > rectThumbLeft.right && clientX < rectThumbRight.left ) {
@@ -91,11 +98,11 @@ export default class DoubleSlider {
       const halfRange = ( rectThumbRight.left - rectThumbLeft.right ) / 2 ;
 
       if ( clientX <= halfRange ) {
-        this.draggingElement = this.subElements.thumbLeft;
+        this.draggingElement = thumbLeft;
         this.onDraggingThumbLeft(event);
       }
       else {
-        this.draggingElement = this.subElements.thumbRight;
+        this.draggingElement = thumbRight;
         this.onDraggingThumbRight(event);
       }
     }
